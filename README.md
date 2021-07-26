@@ -1,1 +1,1 @@
-# Elasticsearch-Query-DSL-Generator-
+# Elasticsearch Query DSL Generator
