@@ -1,0 +1,29 @@
+{
+  "name": "es-query-generator",
+  "version": "1.0.0",
+  "description": "Yet another Elasticsearch query DSL builder",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShinningFinger/es-query-generator.git"
+  },
+  "keywords": [
+    "Elasticsearch",
+    "DSL"
+  ],
+  "author": "9.8",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShinningFinger/es-query-generator/issues"
+  },
+  "homepage": "https://github.com/ShinningFinger/es-query-generator#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.171"
+  }
+}
