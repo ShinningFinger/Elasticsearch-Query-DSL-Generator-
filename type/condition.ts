@@ -1,11 +1,12 @@
-import { Bool, MustNot } from "../query/bool";
-import ConstantScore from "../query/constant-score";
-import Exists from "../query/exists";
-import In from "../query/in";
-import Or from "../query/or";
-import Range from "../query/range";
-import Term from "../query/term";
+import { Bool, Must, MustNot } from "../sentence/bool";
+import ConstantScore from "../sentence/constant-score";
+import Exists from "../sentence/exists";
+import In from "../sentence/in";
+import Or from "../sentence/or";
+import Range from "../sentence/range";
+import Term from "../sentence/term";
 import { QuerySentence } from "./query";
+
 export type TermCondition = string | number | boolean | BoostCondition;
 export function isTermCondition(data: any): data is TermCondition {
   return (
@@ -36,7 +37,10 @@ export function isInCondition(data: any): data is InCondition {
 
 export type BoostCondition = { value: unknown; boost: number };
 
-export type ConstantScoreCondition = { $constant: BoostCondition };
+export type ConstantScoreCondition = {
+  $constant: Conditions;
+  boost?: number;
+};
 export function isConstantScoreCondition(
   data: any
 ): data is ConstantScoreCondition {
@@ -73,48 +77,57 @@ export type Conditions =
   | MustNotCondition
   | ArrayCondition
   | ConstantScoreCondition
-  | ExistanceCondition;
+  | ExistanceCondition
+  | MapCondition;
 
-export function conditionParse(
-  key: string,
-  data: Conditions,
-  boost?: number
-): QuerySentence {
-  if (key === "$or" && isArrayCondition(data)) {
-    return new Or(key, data).generate();
-  }
-  if (key === "$exist" && typeof data === "string") {
-    return new Exists(key, data).generate();
+export function singleConditionParse(key: string, condition: Conditions) {
+  if (key === "$or" && isArrayCondition(condition)) {
+    return new Or({ key, condition }).generate();
   }
 
-  if (key === "$not" && isMapCondition(data)) {
-    return new Bool({ mustNot: new MustNot(data) }).generate();
-  }
-  if (isTermCondition(data)) {
-    return new Term(key, data).generate();
+  if (key === "$exist" && typeof condition === "string") {
+    return new Exists({ condition: { $exists: condition } }).generate();
   }
 
-  if (isRangeCondition(data)) {
-    return new Range(key, data).generate();
+  if (key === "$not" && isMapCondition(condition)) {
+    return new Bool({ mustNot: new MustNot(condition) }).generate();
   }
 
-  if (isInCondition(data)) {
-    return new In(key, data).generate();
+  if (isTermCondition(condition)) {
+    return new Term({ key, condition }).generate();
   }
 
-  if (isExistanceCondition(data)) {
-    return new Exists(key, data).generate();
+  if (isRangeCondition(condition)) {
+    return new Range({ key, condition }).generate();
   }
 
-  if (isMustNotCondition(data)) {
+  if (isInCondition(condition)) {
+    return new In({ key, condition }).generate();
+  }
+
+  if (isExistanceCondition(condition)) {
+    return new Exists({ key, condition }).generate();
+  }
+
+  if (isMustNotCondition(condition)) {
     return new Bool({
-      mustNot: new MustNot({ [key]: data.$not }),
+      mustNot: new MustNot({ [key]: condition.$not }),
     }).generate();
   }
 
-  if (isConstantScoreCondition(data)) {
-    return new ConstantScore(key, data, boost).generate();
+  if (isConstantScoreCondition(condition)) {
+    return new ConstantScore({ key, condition }).generate();
   }
+}
 
-  throw new Error();
+export function conditionParse(query: {
+  [key: string]: Conditions;
+}): QuerySentence {
+  // If query input contains only one condition, output a single object
+  if (Object.keys(query).length === 1) {
+    const [key, condition] = Object.entries(query)[0];
+    return singleConditionParse(key, condition);
+  }
+  // Else, return a must query
+  return new Bool({ must: new Must(query) }).generate();
 }

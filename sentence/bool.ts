@@ -1,4 +1,8 @@
-import { conditionParse, Conditions } from "../type/condition";
+import {
+  conditionParse,
+  Conditions,
+  singleConditionParse,
+} from "../type/condition";
 import { BoolQuery, QuerySentence } from "../type/query";
 
 enum BoolKind {
@@ -17,9 +21,15 @@ class BoolBase {
   generate() {
     const { queryObject, kind } = this;
     return {
-      [kind]: Object.entries(queryObject).map(([key, condition]) => {
-        return conditionParse(key, condition);
-      }),
+      [kind]:
+        Object.entries(queryObject).length > 1
+          ? Object.entries(queryObject).map(([key, condition]) =>
+              singleConditionParse(key, condition)
+            )
+          : singleConditionParse(
+              Object.keys(queryObject)[0],
+              Object.values(queryObject)[0]
+            ),
     };
   }
 }
@@ -32,12 +42,22 @@ class Must extends BoolBase {
   kind = BoolKind.MUST;
 }
 
-class Should extends BoolBase {
-  kind = BoolKind.SHOULD;
-}
-
 class MustNot extends BoolBase {
   kind = BoolKind.MUSTNOT;
+}
+
+class Should {
+  kind = BoolKind.SHOULD;
+  queryArrays: { [key: string]: Conditions }[];
+  constructor(queryArrays: { [key: string]: Conditions }[]) {
+    this.queryArrays = queryArrays;
+  }
+  generate() {
+    const { queryArrays, kind } = this;
+    return {
+      [kind]: queryArrays.map((queryObject) => conditionParse(queryObject)),
+    };
+  }
 }
 
 class Bool {
