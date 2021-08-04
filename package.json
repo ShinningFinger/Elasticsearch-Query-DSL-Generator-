@@ -1,10 +1,10 @@
 {
   "name": "es-query-generator",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Yet another Elasticsearch query DSL builder",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --forceExit --verbose"
   },
   "repository": {
     "type": "git",
