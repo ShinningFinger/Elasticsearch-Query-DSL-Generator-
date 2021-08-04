@@ -25,7 +25,7 @@ export function isTermCondition(condition: any): condition is TermCondition {
     (typeof value === 'string' ||
       typeof value === 'number' ||
       typeof value === 'boolean' ||
-      (typeof value === 'object' && 'boost' in value && 'value' in value))
+      (typeof value === 'object' && !!value && 'boost' in value && 'value' in value))
   )
 }
 
@@ -39,6 +39,7 @@ function isRangeCondition(condition: any): condition is RangeCondition {
   return (
     isSingleCondition(condition) &&
     typeof value === 'object' &&
+    !!value &&
     _.every(Object.keys(value), (k) => ['$gt', '$gte', '$lt', '$lte', 'boost'].includes(k))
   )
 }
@@ -51,6 +52,7 @@ export function isInCondition(condition: any): condition is InCondition {
   return (
     isSingleCondition(condition) &&
     typeof value === 'object' &&
+    !!value &&
     '$in' in value &&
     Array.isArray(_.get(value, '$in'))
   )
@@ -63,7 +65,7 @@ export function isExistanceCondition(condition: any): condition is ExistanceCond
     isSingleCondition(condition) &&
     key === '$exists' &&
     (typeof value === 'string' ||
-      (typeof value === 'object' && 'boost' in value && 'value' in value))
+      (typeof value === 'object' && !!value && 'boost' in value && 'value' in value))
   )
 }
 
@@ -92,6 +94,7 @@ export function isConstantScoreCondition(condition: any): condition is ConstantS
     isSingleCondition(condition) &&
     key === '$constant' &&
     typeof value === 'object' &&
+    !!value &&
     '$filter' in value &&
     'boost' in value
   )
@@ -142,6 +145,7 @@ export function singleConditionParse(condition: { [key: string]: unknown }) {
   if (isExistanceCondition(condition)) {
     return new Exists(condition).generate()
   }
+  throw new Error()
 }
 
 // Factory Function
