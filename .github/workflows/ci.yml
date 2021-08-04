@@ -1,0 +1,13 @@
+name: Node.js CI
+
+on: [push]
+
+jobs:
+  build: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          npm ci
+      - run: |
+          npm run all

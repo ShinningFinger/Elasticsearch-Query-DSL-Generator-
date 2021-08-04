@@ -1,0 +1,46 @@
+{
+  "name": "es-query-generator",
+  "version": "0.0.0",
+  "description": "Yet another Elasticsearch query DSL builder",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --forceExit --verbose",
+    "format": "prettier --write **/*.ts",
+    "lint": "eslint --quiet --ext .ts ./",
+    "all": "npm run build && npm run format && npm run lint  && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShinningFinger/es-query-generator.git"
+  },
+  "keywords": [
+    "Elasticsearch",
+    "DSL"
+  ],
+  "author": "9.8",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShinningFinger/es-query-generator/issues"
+  },
+  "homepage": "https://github.com/ShinningFinger/es-query-generator#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/lodash": "^4.14.172",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5"
+  }
+}
