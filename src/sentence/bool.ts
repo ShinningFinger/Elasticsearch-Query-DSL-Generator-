@@ -5,7 +5,7 @@ import Base from './base'
 abstract class BoolBase extends Base<AndCondition, BoolQuery> {
   abstract kind: BoolKind
 
-  generate() {
+  generate(): BoolQuery {
     const { condition, kind } = this
     return {
       [kind]:
@@ -51,10 +51,10 @@ class Bool {
   generate(): BoolObject {
     const { should, filter, must, mustNot } = this
     const boolQuery: {
-      should?: QuerySentence[]
-      filter?: QuerySentence[]
-      must?: QuerySentence[]
-      must_not?: QuerySentence[]
+      should?: QuerySentence | QuerySentence[]
+      filter?: QuerySentence | QuerySentence[]
+      must?: QuerySentence | QuerySentence[]
+      must_not?: QuerySentence | QuerySentence[]
     } = {}
     if (should) {
       boolQuery.should = should.generate().should

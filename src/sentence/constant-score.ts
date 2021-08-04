@@ -9,7 +9,7 @@ export default class ConstantScore extends Base<ConstantScoreCondition, Constant
     const { filter, boost } = value
     return {
       [QueryType.CONSTANTSCORE]: {
-        filter: new Filter(filter).generate().filter,
+        filter: new Filter(filter).generate().filter!,
         boost,
       },
     }

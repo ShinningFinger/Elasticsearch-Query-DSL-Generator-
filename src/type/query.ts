@@ -25,7 +25,7 @@ export interface BoolObject {
 export interface ExistenceQuery {
   exists: {
     field: string
-    boost: number
+    boost?: number
   }
 }
 
