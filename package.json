@@ -4,10 +4,12 @@
   "description": "Yet another Elasticsearch query DSL builder",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "jest --forceExit --verbose"
   },
   "repository": {
     "type": "git",
+    "format": "prettier --write **/*.ts",
     "url": "git+https://github.com/ShinningFinger/es-query-generator.git"
   },
   "keywords": [
