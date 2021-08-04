@@ -1,3 +1,11 @@
+export enum Mode {
+  AVG = 'avg',
+  SUM = 'sum',
+  MULTIPLY = 'multiply',
+  MAX = 'max',
+  MIN = 'min',
+  TOTAL = 'total',
+}
 export interface TermQuery {
   term: { [key: string]: unknown | { value: unknown; boost?: number } }
 }
@@ -51,3 +59,18 @@ export type QuerySentence =
   | ExistenceQuery
   | ConstantScoreQuery
   | BoolQuery
+
+export interface RescoreQuery {
+  window_size: number
+  query: {
+    rescore_query: any
+    score_mode: Mode
+    rescore_query_weight: number
+  }
+}
+
+export type DSL = {
+  size?: number
+  query?: unknown
+  rescore?: unknown
+}

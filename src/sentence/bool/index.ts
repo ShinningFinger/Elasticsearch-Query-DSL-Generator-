@@ -14,11 +14,24 @@ class Bool {
 
   mustNot?: MustNot
 
-  constructor(params: { should?: Should; filter?: Filter; must?: Must; mustNot?: MustNot }) {
-    this.should = params.should
-    this.filter = params.filter
-    this.must = params.must
-    this.mustNot = params.mustNot
+  constructor(params?: { should?: Should; filter?: Filter; must?: Must; mustNot?: MustNot }) {
+    if (params) {
+      const { should, filter, must, mustNot } = params
+      this.should = should
+      this.filter = filter
+      this.must = must
+      this.mustNot = mustNot
+    }
+  }
+
+  setFilter(filter: Filter) {
+    this.filter = filter
+    return this
+  }
+
+  setBooster(booster: Should) {
+    this.should = booster
+    return this
   }
 
   generate(): BoolQuery {
