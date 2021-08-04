@@ -3,7 +3,7 @@ import { ExistenceQuery } from '../type/query'
 import Base, { QueryType } from './base'
 
 export default class Exists extends Base<ExistanceCondition, ExistenceQuery> {
-  generate() {
+  generate(): ExistenceQuery {
     const { $exists } = this.condition
     let boost: number = 1
     let field: string

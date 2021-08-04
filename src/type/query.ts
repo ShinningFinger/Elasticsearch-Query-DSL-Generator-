@@ -8,25 +8,30 @@ export interface RangeQuery {
   }
 }
 
-export enum BoolKind {
-  FILTER = 'filter',
-  MUST = 'must',
-  SHOULD = 'should',
-  MUSTNOT = 'must_not',
-}
-export type BoolQuery = {
-  [key in BoolKind]?: QuerySentence | QuerySentence[]
-}
-
-export interface BoolObject {
-  bool: BoolQuery
-}
-
 export interface ExistenceQuery {
   exists: {
     field: string
     boost?: number
   }
+}
+
+export type ShouldQuery = {
+  should?: QuerySentence[]
+}
+export type MustQuery = {
+  must?: QuerySentence | QuerySentence[]
+}
+
+export type FilterQuery = {
+  filter?: QuerySentence | QuerySentence[]
+}
+
+export type MustNotQuery = {
+  must_not?: QuerySentence | QuerySentence[]
+}
+
+export interface BoolQuery {
+  bool: ShouldQuery | MustQuery | FilterQuery | MustNotQuery
 }
 
 export interface ConstantScoreQuery {
@@ -39,7 +44,10 @@ export interface ConstantScoreQuery {
 export type QuerySentence =
   | TermQuery
   | RangeQuery
-  | BoolQuery
+  | MustQuery
+  | MustNotQuery
+  | FilterQuery
+  | ShouldQuery
   | ExistenceQuery
   | ConstantScoreQuery
-  | BoolObject
+  | BoolQuery

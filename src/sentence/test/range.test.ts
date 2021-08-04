@@ -1,4 +1,5 @@
 import Range from '../range'
+
 test('GT range', () => {
   const range = new Range({ age: { $gt: 1 } }).generate()
   expect(range).toEqual({ range: { age: { gt: 1 } } })

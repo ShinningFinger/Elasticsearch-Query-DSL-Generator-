@@ -3,7 +3,7 @@ import { RangeQuery } from '../type/query'
 import Base, { QueryType } from './base'
 
 export default class Range extends Base<RangeCondition, RangeQuery> {
-  generate() {
+  generate(): RangeQuery {
     const [key, value] = Object.entries(this.condition)[0]
     const query: {
       gte?: unknown

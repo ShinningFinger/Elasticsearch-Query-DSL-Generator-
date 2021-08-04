@@ -1,9 +1,10 @@
+/* eslint-disable import/no-cycle */
 import { InCondition } from '../type/condition'
-import { BoolObject } from '../type/query'
+import { BoolQuery } from '../type/query'
 import Base from './base'
 import { Bool, Should } from './bool'
 
-export default class In extends Base<InCondition, BoolObject> {
+export default class In extends Base<InCondition, BoolQuery> {
   generate() {
     const [key, value] = Object.entries(this.condition)[0]
     const subconditions = value.$in

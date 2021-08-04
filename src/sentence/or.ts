@@ -1,9 +1,10 @@
+/* eslint-disable import/no-cycle */
 import { OrCondition } from '../type/condition'
-import { BoolObject } from '../type/query'
+import { BoolQuery } from '../type/query'
 import Base from './base'
 import { Bool, Should } from './bool'
 
-export default class Or extends Base<OrCondition, BoolObject> {
+export default class Or extends Base<OrCondition, BoolQuery> {
   generate() {
     const { condition } = this
     return new Bool({
