@@ -1,6 +1,6 @@
 import { ExistanceCondition } from '../type/condition'
 import { ExistenceQuery } from '../type/query'
-import Base, { QueryType } from './base'
+import Base from './base'
 
 export default class Exists extends Base<ExistanceCondition, ExistenceQuery> {
   generate(): ExistenceQuery {
@@ -18,7 +18,7 @@ export default class Exists extends Base<ExistanceCondition, ExistenceQuery> {
       query.boost = boost
     }
     return {
-      [QueryType.EXISTENCE]: query,
+      exists: query,
     }
   }
 }

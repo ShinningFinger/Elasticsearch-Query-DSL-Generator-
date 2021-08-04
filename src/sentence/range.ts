@@ -1,6 +1,6 @@
 import { RangeCondition } from '../type/condition'
 import { RangeQuery } from '../type/query'
-import Base, { QueryType } from './base'
+import Base from './base'
 
 export default class Range extends Base<RangeCondition, RangeQuery> {
   generate(): RangeQuery {
@@ -28,7 +28,7 @@ export default class Range extends Base<RangeCondition, RangeQuery> {
       query.boost = value.boost
     }
     return {
-      [QueryType.RANGE]: {
+      range: {
         [key]: query,
       },
     }
