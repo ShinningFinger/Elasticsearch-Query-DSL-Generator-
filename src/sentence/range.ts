@@ -4,7 +4,7 @@ import Base, { QueryType } from './base'
 
 export default class Range extends Base<RangeCondition, RangeQuery> {
   generate() {
-    const { key, condition, boost } = this
+    const [key, value] = Object.entries(this.condition)[0]
     const query: {
       gte?: unknown
       lte?: unknown
@@ -12,20 +12,20 @@ export default class Range extends Base<RangeCondition, RangeQuery> {
       lt?: unknown
       boost?: number
     } = {}
-    if (condition.$gte) {
-      query.gte = condition.$gte
+    if (value.$gte) {
+      query.gte = value.$gte
     }
-    if (condition.$lte) {
-      query.lte = condition.$lte
+    if (value.$lte) {
+      query.lte = value.$lte
     }
-    if (condition.$gt) {
-      query.gt = condition.$gt
+    if (value.$gt) {
+      query.gt = value.$gt
     }
-    if (condition.$lt) {
-      query.lt = condition.$lt
+    if (value.$lt) {
+      query.lt = value.$lt
     }
-    if (boost) {
-      query.boost = boost
+    if (value.boost) {
+      query.boost = value.boost
     }
     return {
       [QueryType.RANGE]: {

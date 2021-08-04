@@ -4,14 +4,11 @@ import Base, { QueryType } from './base'
 
 export default class Term extends Base<TermCondition, TermQuery> {
   generate() {
-    const { key, condition, boost } = this
-    let body: TermCondition = condition
-    if (boost) {
-      body = { value: condition, boost }
-    }
+    const { condition } = this
+    const [key, value] = Object.entries(condition)[0]
     return {
       [QueryType.TERM]: {
-        [key]: body,
+        [key]: value,
       },
     }
   }
