@@ -1,6 +1,6 @@
 {
   "name": "es-query-generator",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Yet another Elasticsearch query DSL builder",
   "main": "index.js",
   "scripts": {
