@@ -1,6 +1,6 @@
 {
-  "name": "es-query-generator",
-  "version": "0.0.1",
+  "name": "@ruguoapp/es-query-generator",
+  "version": "0.0.2-alpha",
   "description": "Yet another Elasticsearch query DSL builder",
   "main": "index.js",
   "scripts": {
