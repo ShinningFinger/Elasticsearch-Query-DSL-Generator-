@@ -1,8 +1,12 @@
 {
   "name": "@ruguoapp/es-query-generator",
-  "version": "0.0.5-alpha",
+  "version": "0.0.6-alpha",
   "description": "Yet another Elasticsearch query DSL builder",
+  "files": [
+    "/dist/src"
+  ],
   "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest --forceExit --verbose",
