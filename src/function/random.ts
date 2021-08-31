@@ -6,7 +6,7 @@ export type RandomFunction = {
     seed?: string
     field?: string
   }
-  weight?: number
+  weight: number
 }
 
 export default class Random extends BaseFunction {

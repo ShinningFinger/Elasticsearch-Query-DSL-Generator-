@@ -40,25 +40,21 @@ export default class DecayFunction extends BaseFunction {
   }
 
   generate() {
-    const { kind, key, offset, scale, decay, origin, weight } = this
-
-    return _.omitBy(
-      {
-        filter: this.filter,
-        [kind]: {
-          [key]: _.omitBy(
-            {
-              offset,
-              scale,
-              decay,
-              origin,
-            },
-            _.isUndefined,
-          ),
-        },
-        weight,
+    const { kind, key, offset, scale, decay, origin, weight, filter } = this
+    return {
+      filter: filter.generate().filter,
+      [kind]: {
+        [key]: _.omitBy(
+          {
+            offset,
+            scale,
+            decay,
+            origin,
+          },
+          _.isUndefined,
+        ),
       },
-      _.isUndefined,
-    )
+      weight,
+    }
   }
 }

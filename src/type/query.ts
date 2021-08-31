@@ -49,6 +49,10 @@ export interface ConstantScoreQuery {
   }
 }
 
+export interface MatchAllQuery {
+  match_all: {}
+}
+
 export type QuerySentence =
   | TermQuery
   | RangeQuery
@@ -59,6 +63,7 @@ export type QuerySentence =
   | ExistenceQuery
   | ConstantScoreQuery
   | BoolQuery
+  | MatchAllQuery
 
 export interface RescoreQuery {
   window_size: number

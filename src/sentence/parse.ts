@@ -2,6 +2,7 @@
 import {
   Condition,
   isConstantScoreCondition,
+  isEmptyCondition,
   isExistanceCondition,
   isInCondition,
   isNotCondition,
@@ -49,6 +50,9 @@ export function singleConditionParse(condition: { [key: string]: unknown }): Que
 }
 
 export function parse(condition: Condition): QuerySentence | QuerySentence[] {
+  if (isEmptyCondition(condition)) {
+    return { match_all: {} }
+  }
   const sentences: QuerySentence[] = Object.entries(condition).map(([key, value]) =>
     singleConditionParse({ [key]: value }),
   )

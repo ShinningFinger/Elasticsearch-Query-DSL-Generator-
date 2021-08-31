@@ -106,6 +106,12 @@ export function isAndCondition(condition: any): condition is AndCondition {
   return Object.entries(condition).length > 1
 }
 
+export type EmptyCondition = {}
+
+export function isEmptyCondition(condition: any): condition is EmptyCondition {
+  return typeof condition === 'object' && Object.entries(condition).length === 0
+}
+
 type SingleCondition =
   | ConstantScoreCondition
   | NotCondition
@@ -115,4 +121,4 @@ type SingleCondition =
   | RangeCondition
   | TermCondition
 
-export type Condition = SingleCondition | AndCondition
+export type Condition = SingleCondition | AndCondition | EmptyCondition

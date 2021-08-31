@@ -8,7 +8,7 @@ export default class ScriptFunction extends BaseFunction {
   constructor(data: {
     source: string
     weight?: number
-    params: { [key: string]: string | number | boolean }
+    params?: { [key: string]: string | number | boolean }
   }) {
     const { source, weight, params } = data
     super(weight)
