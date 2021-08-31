@@ -76,6 +76,8 @@ export interface RescoreQuery {
 
 export type DSL = {
   size?: number
+  from?: number
+  explain?: boolean
   query?: unknown
   rescore?: unknown
 }

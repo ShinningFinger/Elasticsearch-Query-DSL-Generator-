@@ -8,7 +8,7 @@ import Random from './random'
 import Script from './script'
 import Weight from './weight'
 
-class FunctionScore {
+class FunctionScoreQuery {
   scoreMode?: Mode
 
   boostMode?: Mode
@@ -19,10 +19,19 @@ class FunctionScore {
 
   private booster?: Should
 
-  constructor(param: { scoreMode?: Mode; boostMode?: Mode }) {
-    const { scoreMode, boostMode } = param
+  constructor(param: {
+    filter?: Filter
+    booster?: Should
+    functions?: (Decay | FieldValueFactor | Random | Script | Weight)[]
+    scoreMode?: Mode
+    boostMode?: Mode
+  }) {
+    const { filter = new Filter({}), booster, functions = [], scoreMode, boostMode } = param
     this.boostMode = boostMode
     this.scoreMode = scoreMode
+    this.functions = functions
+    this.filter = filter
+    this.booster = booster
   }
 
   setFilter(f: Filter) {
@@ -37,6 +46,14 @@ class FunctionScore {
 
   setFunctions(functions: (Decay | FieldValueFactor | Random | Script | Weight)[]) {
     this.functions = functions
+    return this
+  }
+
+  addFunction(f: Decay | FieldValueFactor | Random | Script | Weight) {
+    if (!this.functions) {
+      this.functions = []
+    }
+    this.functions.push(f)
     return this
   }
 
@@ -71,13 +88,13 @@ class Rescore {
 
   rescoreQueryWeight: number
 
-  rescoreQuery: FunctionScore
+  rescoreQuery: FunctionScoreQuery
 
   constructor(params: {
     windowSize: number
     scoreMode: Mode
     rescoreQueryWeight: number
-    rescoreQuery: FunctionScore
+    rescoreQuery: FunctionScoreQuery
   }) {
     this.windowSize = params.windowSize
     this.scoreMode = params.scoreMode
@@ -103,4 +120,4 @@ class Rescore {
   }
 }
 
-export { Decay, Random, Weight, FieldValueFactor, Script, FunctionScore, Rescore }
+export { Decay, Random, Weight, FieldValueFactor, Script, FunctionScoreQuery, Rescore }
