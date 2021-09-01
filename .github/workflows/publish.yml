@@ -15,5 +15,5 @@ jobs:
       - run: npm test
       - uses: JS-DevTools/npm-publish@v1
         with:
-          token: ${{npm_secrets.NPM_TOKEN}}
-          registry: ${{npm_secrets.NPM_REGISTRY}}
+          token: ${{secrets.NPM_TOKEN}}
+          registry: ${{secrets.NPM_REGISTRY}}
