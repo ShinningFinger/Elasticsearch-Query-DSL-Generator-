@@ -41,7 +41,15 @@ export default class SearchDSLGenerator {
     if (!this.rescores) {
       this.rescores = []
     }
-    this.rescores?.push(rescore)
+    this.rescores.push(rescore)
+    return this
+  }
+
+  public addRescores(...r: Rescore[]) {
+    if (!this.rescores) {
+      this.rescores = []
+    }
+    this.rescores.push(...r)
     return this
   }
 

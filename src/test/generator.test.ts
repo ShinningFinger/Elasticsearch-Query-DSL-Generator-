@@ -173,4 +173,23 @@ describe('Function score query', () => {
     )
     expect(dsl.generate()).toEqual(expectedBody)
   })
+  it('Function score query with rescores', () => {
+    dsl.addRescores(
+      new Rescore({
+        windowSize: 50,
+        scoreMode: Mode.TOTAL,
+        rescoreQueryWeight: 0.5,
+        rescoreQuery: query,
+      }),
+      new Rescore({
+        windowSize: 39,
+        scoreMode: Mode.TOTAL,
+        rescoreQueryWeight: 0.5,
+        rescoreQuery: query,
+      }),
+    )
+    const dslBody = dsl.generate()
+    const { rescore } = dslBody
+    expect(rescore).toHaveLength(3)
+  })
 })

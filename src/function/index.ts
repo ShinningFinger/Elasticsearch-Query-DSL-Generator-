@@ -57,6 +57,13 @@ class FunctionScoreQuery {
     return this
   }
 
+  addFunctions(...f: (Decay | FieldValueFactor | Random | Script | Weight)[]) {
+    if (!this.functions) {
+      this.functions = []
+    }
+    this.functions.push(...f)
+  }
+
   generate() {
     const { scoreMode, boostMode } = this
     const boolObject = new Bool()

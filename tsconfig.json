@@ -1,19 +1,22 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "outDir": "dist",
-    "rootDir": "./",
+    "target": "es2020",
     "module": "commonjs",
     "sourceMap": true,
-    "declaration": false,
-    "target": "es2017",
+    "declaration": true,
+    "noImplicitAny": true,
     "strictNullChecks": true,
-    "typeRoots": ["node_modules/@types"],
-    "strict": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true
+    "allowJs": false,
+    "rootDir": "./",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "outDir": "dist",
+    "declarationMap": true,
+    "esModuleInterop": true,
   },
-  "exclude": ["dist", "node_modules"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
