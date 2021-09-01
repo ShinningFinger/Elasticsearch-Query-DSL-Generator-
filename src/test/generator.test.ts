@@ -17,7 +17,7 @@ describe('Function score query', () => {
     scoreMode: Mode.SUM,
     boostMode: Mode.SUM,
   })
-  query.addFunction(new Random({ weight: 200 }))
+  query.addFunctions(new Random({ weight: 200 }))
   dsl.setQuery(query)
   it('Common function score query', () => {
     const expectedBody = {
@@ -163,7 +163,7 @@ describe('Function score query', () => {
         },
       ],
     }
-    dsl.addRescore(
+    dsl.addRescores(
       new Rescore({
         windowSize: 50,
         scoreMode: Mode.TOTAL,

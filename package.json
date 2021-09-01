@@ -1,6 +1,6 @@
 {
   "name": "@ruguoapp/es-query-generator",
-  "version": "0.0.7",
+  "version": "0.0.11",
   "description": "Yet another Elasticsearch query DSL builder",
   "files": [
     "/dist/src"
@@ -10,10 +10,11 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --forceExit --verbose",
+    "clean": "rm -rf dist",
     "format": "prettier --write **/*.ts",
     "lint": "eslint --quiet --ext .ts ./",
     "all": "npm run build && npm run format && npm run lint  && npm test",
-    "compile": "tsc"
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",

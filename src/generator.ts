@@ -9,7 +9,7 @@ export default class SearchDSLGenerator {
 
   query?: FunctionScoreQuery
 
-  private rescores?: Rescore[]
+  rescores?: Rescore[]
 
   explain?: boolean
 
@@ -18,11 +18,13 @@ export default class SearchDSLGenerator {
     from?: number
     explain?: boolean
     query?: FunctionScoreQuery
+    rescores?: Rescore[]
   }) {
-    const { size = 10, from = 0, explain = false, query } = params
+    const { size = 10, from = 0, explain = false, query, rescores } = params
     this.query = query
     this.size = size
     this.from = from
+    this.rescores = rescores
     if (explain) {
       this.explain = explain
     }
@@ -34,14 +36,6 @@ export default class SearchDSLGenerator {
 
   public setRescores(rescores: Rescore[]) {
     this.rescores = rescores
-    return this
-  }
-
-  public addRescore(rescore: Rescore) {
-    if (!this.rescores) {
-      this.rescores = []
-    }
-    this.rescores.push(rescore)
     return this
   }
 

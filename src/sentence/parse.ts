@@ -46,7 +46,7 @@ export function singleConditionParse(condition: { [key: string]: unknown }): Que
   if (isExistanceCondition(condition)) {
     return new Exists(condition).generate()
   }
-  throw new Error()
+  throw new Error(`Upsupported condition: ${JSON.stringify(condition)}`)
 }
 
 export function parse(condition: Condition): QuerySentence | QuerySentence[] {

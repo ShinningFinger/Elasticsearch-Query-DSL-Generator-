@@ -93,7 +93,7 @@ export function isConstantScoreCondition(condition: any): condition is ConstantS
     key === '$constant' &&
     typeof value === 'object' &&
     !!value &&
-    '$filter' in value &&
+    'filter' in value &&
     'boost' in value
   )
 }

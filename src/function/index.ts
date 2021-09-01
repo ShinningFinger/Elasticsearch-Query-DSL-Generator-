@@ -49,14 +49,6 @@ class FunctionScoreQuery {
     return this
   }
 
-  addFunction(f: Decay | FieldValueFactor | Random | Script | Weight) {
-    if (!this.functions) {
-      this.functions = []
-    }
-    this.functions.push(f)
-    return this
-  }
-
   addFunctions(...f: (Decay | FieldValueFactor | Random | Script | Weight)[]) {
     if (!this.functions) {
       this.functions = []
