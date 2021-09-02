@@ -42,11 +42,11 @@ class Bool {
       must?: QuerySentence | QuerySentence[]
       must_not?: QuerySentence | QuerySentence[]
     } = {}
-    if (should) {
-      boolQuery.should = should.generate().should
-    }
     if (filter) {
       boolQuery.filter = filter.generate().filter
+    }
+    if (should) {
+      boolQuery.should = should.generate().should
     }
     if (must) {
       boolQuery.must = must.generate().must
