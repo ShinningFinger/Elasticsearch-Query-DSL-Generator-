@@ -49,10 +49,10 @@ export default class DecayFunction extends BaseFunction {
         [kind]: {
           [key]: _.omitBy(
             {
+              origin,
               offset,
               scale,
               decay,
-              origin,
             },
             _.isUndefined,
           ),
