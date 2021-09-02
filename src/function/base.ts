@@ -5,9 +5,11 @@ export default class BaseFunction {
 
   weight: number
 
-  constructor(weight = 1, filter = new Filter({})) {
+  constructor(weight = 1, filter?: Filter) {
     this.weight = weight
-    this.filter = filter
+    if (filter) {
+      this.filter = filter
+    }
   }
 
   setFilter(filter: Filter) {
