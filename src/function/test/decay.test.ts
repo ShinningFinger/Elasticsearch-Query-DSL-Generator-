@@ -13,7 +13,6 @@ test('Gauss function without filter', () => {
     weight: 300,
   })
   expect(gauss.generate()).toEqual({
-    filter: { match_all: {} },
     gauss: {
       age: {
         offset: '187d',
@@ -66,7 +65,6 @@ test('Gauss function with default weight', () => {
     decay: 0.2,
   })
   expect(gauss.generate()).toEqual({
-    filter: { match_all: {} },
     gauss: {
       age: {
         offset: '187d',
