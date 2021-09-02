@@ -1,4 +1,5 @@
 import * as _ from 'lodash'
+import { Filter } from '../sentence/bool'
 import BaseFunction from './base'
 
 export enum DecayKind {
@@ -28,9 +29,10 @@ export default class DecayFunction extends BaseFunction {
     origin: unknown
     decay?: number
     weight?: number
+    filter?: Filter
   }) {
-    const { kind, key, offset, scale, origin, decay, weight } = params
-    super(weight)
+    const { kind, key, offset, scale, origin, decay, weight, filter } = params
+    super(weight, filter)
     this.kind = kind
     this.key = key
     this.offset = offset
@@ -41,20 +43,23 @@ export default class DecayFunction extends BaseFunction {
 
   generate() {
     const { kind, key, offset, scale, decay, origin, weight, filter } = this
-    return {
-      filter: filter.generate().filter,
-      [kind]: {
-        [key]: _.omitBy(
-          {
-            offset,
-            scale,
-            decay,
-            origin,
-          },
-          _.isUndefined,
-        ),
+    return _.omitBy(
+      {
+        filter: filter?.generate().filter,
+        [kind]: {
+          [key]: _.omitBy(
+            {
+              offset,
+              scale,
+              decay,
+              origin,
+            },
+            _.isUndefined,
+          ),
+        },
+        weight,
       },
-      weight,
-    }
+      _.isUndefined,
+    )
   }
 }
