@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { Filter } from '../sentence/bool'
+import { Condition } from '../type/condition'
 import BaseFunction from './base'
 
 export enum DecayKind {
@@ -29,7 +29,7 @@ export default class DecayFunction extends BaseFunction {
     origin: unknown
     decay?: number
     weight?: number
-    filter?: Filter
+    filter?: Condition
   }) {
     const { kind, key, offset, scale, origin, decay, weight, filter } = params
     super({ weight, filter })
