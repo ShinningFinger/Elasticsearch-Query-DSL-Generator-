@@ -10,7 +10,7 @@ describe('Function score query', () => {
       name: { $in: ['John', 'Lulu'] },
       $not: { gender: 'MALE' },
     },
-    booster: [{ $exists: 'location', location: 'Shanghai' }, { hometown: 'Tokyo' }],
+    should: [{ $exists: 'location', location: 'Shanghai' }, { hometown: 'Tokyo' }],
     scoreMode: Mode.SUM,
     boostMode: Mode.SUM,
   })
