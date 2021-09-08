@@ -32,7 +32,7 @@ export default class DecayFunction extends BaseFunction {
     filter?: Filter
   }) {
     const { kind, key, offset, scale, origin, decay, weight, filter } = params
-    super(weight, filter)
+    super({ weight, filter })
     this.kind = kind
     this.key = key
     this.offset = offset

@@ -11,7 +11,7 @@ export default class ScriptFunction extends BaseFunction {
     params?: { [key: string]: string | number | boolean }
   }) {
     const { source, weight, params } = data
-    super(weight)
+    super({ weight })
     this.source = source
     this.params = params
   }

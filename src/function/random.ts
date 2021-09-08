@@ -16,7 +16,7 @@ export default class Random extends BaseFunction {
 
   constructor(params: { seed?: string; field?: string; weight?: number }) {
     const { seed, field, weight } = params
-    super(weight)
+    super({ weight })
     this.seed = seed
     this.field = field
   }
