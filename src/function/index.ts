@@ -21,18 +21,22 @@ class FunctionScoreQuery {
   private booster?: Should
 
   constructor(param: {
-    filter?: Filter
-    booster?: Should
+    filter?: Condition
+    booster?: Condition[]
     functions?: (Decay | FieldValueFactor | Random | Script | Weight)[]
     scoreMode?: Mode
     boostMode?: Mode
   }) {
-    const { filter = new Filter({}), booster, functions = [], scoreMode, boostMode } = param
+    const { filter = {}, booster, functions, scoreMode = Mode.SUM, boostMode = Mode.SUM } = param
     this.boostMode = boostMode
     this.scoreMode = scoreMode
-    this.functions = functions
-    this.filter = filter
-    this.booster = booster
+    this.filter = new Filter(filter)
+    if (booster && !_.isEmpty(booster)) {
+      this.booster = new Should(booster)
+    }
+    if (functions && !_.isEmpty(functions)) {
+      this.functions = functions
+    }
   }
 
   setFilter(f: Condition) {

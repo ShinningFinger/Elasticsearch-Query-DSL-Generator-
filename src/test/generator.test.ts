@@ -1,19 +1,16 @@
 import { FunctionScoreQuery, Random, Rescore } from '../function'
 import SearchDSLGenerator from '../generator'
-import { Filter, Should } from '../sentence/bool'
 import { Mode } from '../type/query'
 
 describe('Function score query', () => {
-  const filter = new Filter({
-    age: { $gte: 30 },
-    name: { $in: ['John', 'Lulu'] },
-    $not: { gender: 'MALE' },
-  })
-  const booster = new Should([{ $exists: 'location', location: 'Shanghai' }, { hometown: 'Tokyo' }])
   const dsl = new SearchDSLGenerator({ size: 10, from: 0 })
   const query = new FunctionScoreQuery({
-    filter,
-    booster,
+    filter: {
+      age: { $gte: 30 },
+      name: { $in: ['John', 'Lulu'] },
+      $not: { gender: 'MALE' },
+    },
+    booster: [{ $exists: 'location', location: 'Shanghai' }, { hometown: 'Tokyo' }],
     scoreMode: Mode.SUM,
     boostMode: Mode.SUM,
   })
