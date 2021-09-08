@@ -1,6 +1,6 @@
 {
   "name": "@ruguoapp/es-query-generator",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "Yet another Elasticsearch query DSL builder",
   "files": [
     "/dist/src"

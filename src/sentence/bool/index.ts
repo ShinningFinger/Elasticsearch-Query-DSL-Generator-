@@ -29,8 +29,8 @@ class Bool {
     return this
   }
 
-  setBooster(booster: Should) {
-    this.should = booster
+  setShould(should: Should) {
+    this.should = should
     return this
   }
 
