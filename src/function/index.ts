@@ -1,6 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import * as _ from 'lodash'
 import { Bool, Filter, Should } from '../sentence/bool'
+import { Condition } from '../type/condition'
 import { Mode, RescoreQuery } from '../type/query'
 import Decay from './decay'
 import FieldValueFactor from './field-value-factor'
@@ -34,13 +35,13 @@ class FunctionScoreQuery {
     this.booster = booster
   }
 
-  setFilter(f: Filter) {
-    this.filter = f
+  setFilter(f: Condition) {
+    this.filter = new Filter(f)
     return this
   }
 
-  setBooster(b: Should) {
-    this.booster = b
+  setBooster(b: Condition[]) {
+    this.booster = new Should(b)
     return this
   }
 

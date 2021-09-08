@@ -1,10 +1,8 @@
 import { Weight } from '..'
-import { Filter } from '../../sentence/bool'
 
 test('Weight function', () => {
-  const filter = new Filter({ name: 'John', gender: 'MALE', age: { $lte: 28 } })
-  const weight = new Weight(1000)
-  weight.setFilter(filter)
+  const weight = new Weight({ weight: 1000 })
+  weight.setFilter({ name: 'John', gender: 'MALE', age: { $lte: 28 } })
   expect(weight.generate()).toEqual({
     filter: [
       { term: { name: 'John' } },

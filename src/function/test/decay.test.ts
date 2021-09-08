@@ -1,5 +1,4 @@
 import { Decay } from '..'
-import Filter from '../../sentence/bool/filter'
 import { DecayKind } from '../decay'
 
 test('Gauss function without filter', () => {
@@ -35,8 +34,7 @@ test('Gauss function with filter ', () => {
     decay: 0.2,
     weight: 300,
   })
-  const filter = new Filter({ name: 'John', gender: 'MALE', age: { $lte: 28 } })
-  gauss.setFilter(filter)
+  gauss.setFilter({ name: 'John', gender: 'MALE', age: { $lte: 28 } })
   expect(gauss.generate()).toEqual({
     filter: [
       { term: { name: 'John' } },
