@@ -16,12 +16,25 @@ export interface RangeQuery {
   }
 }
 
-export interface ExistenceQuery {
+export type SingleExistenceQuery = {
   exists: {
     field: string
     boost?: number
   }
 }
+
+export type MultiExistenceQuery = {
+  bool: {
+    must: {
+      exists: {
+        field: string
+        boost?: number
+      }
+    }[]
+  }
+}
+
+export type ExistenceQuery = SingleExistenceQuery | MultiExistenceQuery
 
 export type ShouldQuery = {
   should?: QuerySentence[]

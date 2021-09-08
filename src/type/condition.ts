@@ -52,16 +52,18 @@ export function isInCondition(condition: any): condition is InCondition {
   )
 }
 
-export type ExistanceCondition = { $exists: string | { value: string; boost: number } }
+export type SingleExistanceCondition = {
+  $exists: string | { value: string; boost: number }
+}
 
-export function isExistanceCondition(condition: any): condition is ExistanceCondition {
-  const [key, value] = Object.entries(condition)[0]
-  return (
-    isSingleCondition(condition) &&
-    key === '$exists' &&
-    (typeof value === 'string' ||
-      (typeof value === 'object' && !!value && 'boost' in value && 'value' in value))
-  )
+export type MultiExistanceCondition = {
+  $exists: (string | { value: string; boost: number })[]
+}
+export type ExistanceCondition = SingleExistanceCondition | MultiExistanceCondition
+
+export function isExistanceCondition(condition: any): condition is SingleExistanceCondition {
+  const [key] = Object.entries(condition)[0]
+  return isSingleCondition(condition) && key === '$exists'
 }
 
 export type OrCondition = {

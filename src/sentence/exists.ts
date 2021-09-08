@@ -1,10 +1,10 @@
-import { ExistanceCondition } from '../type/condition'
-import { ExistenceQuery } from '../type/query'
+import { ExistanceCondition, SingleExistanceCondition } from '../type/condition'
+import { ExistenceQuery, SingleExistenceQuery } from '../type/query'
 import Base from './base'
 
 export default class Exists extends Base<ExistanceCondition, ExistenceQuery> {
-  generate(): ExistenceQuery {
-    const { $exists } = this.condition
+  static generateSingle(condition: SingleExistanceCondition): SingleExistenceQuery {
+    const { $exists } = condition
     let boost: number = 1
     let field: string
     if (typeof $exists === 'object') {
@@ -20,5 +20,13 @@ export default class Exists extends Base<ExistanceCondition, ExistenceQuery> {
     return {
       exists: query,
     }
+  }
+
+  generate(): ExistenceQuery {
+    const { $exists } = this.condition
+    if (!Array.isArray($exists)) {
+      return Exists.generateSingle({ $exists })
+    }
+    return { bool: { must: $exists.map((f) => Exists.generateSingle({ $exists: f })) } }
   }
 }
