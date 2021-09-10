@@ -4,16 +4,15 @@ import { Mode } from '../type/query'
 
 describe('Function score query', () => {
   const dsl = new SearchDSLGenerator().setSize(10).setFrom(0)
-  const query = new FunctionScoreQuery({
-    filter: {
+  const query = new FunctionScoreQuery()
+    .setFilter({
       age: { $gte: 30 },
       name: { $in: ['John', 'Lulu'] },
       $not: { gender: 'MALE' },
-    },
-    should: [{ $exists: 'location', location: 'Shanghai' }, { hometown: 'Tokyo' }],
-    scoreMode: Mode.SUM,
-    boostMode: Mode.SUM,
-  })
+    })
+    .setShould([{ $exists: 'location', location: 'Shanghai' }, { hometown: 'Tokyo' }])
+    .setBoostScore(Mode.SUM)
+    .setScoreMode(Mode.SUM)
   query.addFunctions(new Random().setWeight(200))
   dsl.setQuery(query)
   it('Common function score query', () => {

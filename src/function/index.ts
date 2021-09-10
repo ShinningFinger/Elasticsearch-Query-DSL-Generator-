@@ -1,6 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import * as _ from 'lodash'
-import { Bool, Filter, Should } from '../sentence/bool'
+import { Bool, Filter, Must, Should } from '../sentence/bool'
 import { Condition } from '../type/condition'
 import { Mode, RescoreQuery } from '../type/query'
 import Decay from './decay'
@@ -20,27 +20,23 @@ class FunctionScoreQuery {
 
   private should?: Should
 
-  constructor(param: {
-    filter?: Condition
-    should?: Condition[]
-    functions?: (Decay | FieldValueFactor | Random | Script | Weight)[]
-    scoreMode?: Mode
-    boostMode?: Mode
-  }) {
-    const { filter = {}, should, functions, scoreMode = Mode.SUM, boostMode = Mode.SUM } = param
-    this.boostMode = boostMode
-    this.scoreMode = scoreMode
-    this.filter = new Filter(filter)
-    if (should && !_.isEmpty(should)) {
-      this.should = new Should(should)
-    }
-    if (functions && !_.isEmpty(functions)) {
-      this.functions = functions
+  private must?: Must
+
+  constructor(param?: { scoreMode?: Mode; boostMode?: Mode }) {
+    if (param) {
+      const { scoreMode = Mode.SUM, boostMode = Mode.SUM } = param
+      this.boostMode = boostMode
+      this.scoreMode = scoreMode
     }
   }
 
   setFilter(f: Condition) {
     this.filter = new Filter(f)
+    return this
+  }
+
+  setMust(m: Condition) {
+    this.must = new Must(m)
     return this
   }
 
