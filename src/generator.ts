@@ -13,20 +13,14 @@ export default class SearchDSLGenerator {
 
   explain?: boolean
 
-  constructor(params: {
-    size?: number
-    from?: number
-    explain?: boolean
-    query?: FunctionScoreQuery
-    rescores?: Rescore[]
-  }) {
-    const { size = 10, from = 0, explain = false, query, rescores } = params
-    this.query = query
-    this.size = size
-    this.from = from
-    this.rescores = rescores
-    if (explain) {
-      this.explain = explain
+  constructor(params?: { size?: number; from?: number; explain?: boolean }) {
+    if (params) {
+      const { size = 10, from = 0, explain = false } = params
+      this.size = size
+      this.from = from
+      if (explain) {
+        this.explain = explain
+      }
     }
   }
 
@@ -49,6 +43,21 @@ export default class SearchDSLGenerator {
 
   public setQuery(q: FunctionScoreQuery) {
     this.query = q
+    return this
+  }
+
+  public setSize(s: number) {
+    this.size = s
+    return this
+  }
+
+  public setFrom(f: number) {
+    this.from = f
+    return this
+  }
+
+  public setExplain(e: boolean) {
+    this.explain = e
     return this
   }
 

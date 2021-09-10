@@ -14,11 +14,14 @@ export default class Random extends BaseFunction {
 
   field?: string
 
-  constructor(params: { seed?: string; field?: string; weight?: number }) {
-    const { seed, field, weight } = params
-    super({ weight })
-    this.seed = seed
-    this.field = field
+  public setSeed(s: string) {
+    this.seed = s
+    return this
+  }
+
+  public setField(f: string) {
+    this.field = f
+    return this
   }
 
   generate(): RandomFunction {

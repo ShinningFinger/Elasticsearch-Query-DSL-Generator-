@@ -6,16 +6,17 @@ export default class BaseFunction {
 
   weight: number
 
-  constructor(params: { weight?: number; filter?: Condition }) {
-    const { weight = 1, filter } = params
+  constructor(weight = 1) {
     this.weight = weight
-    if (filter) {
-      this.filter = new Filter(filter)
-    }
   }
 
-  setFilter(condition: Condition) {
+  public setFilter(condition: Condition) {
     this.filter = new Filter(condition)
+    return this
+  }
+
+  public setWeight(w: number) {
+    this.weight = w
     return this
   }
 }

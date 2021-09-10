@@ -24,26 +24,31 @@ export default class FieldValueFactorFunction extends BaseFunction {
 
   missing?: number
 
-  constructor(params: {
-    field: string
-    factor: number
-    modifier: Modifier
-    missing?: number
-    weight?: number
-  }) {
-    const { weight, field, factor, missing, modifier } = params
-    super({ weight })
-    this.field = field
-    this.factor = factor
-    this.missing = missing
-    this.modifier = modifier
-  }
-
   generate() {
     const { weight, field, factor, missing, modifier } = this
     return {
       field_value_factor: _.omitBy({ field, factor, missing, modifier }, _.isUndefined),
       weight,
     }
+  }
+
+  public setField(f: string) {
+    this.field = f
+    return this
+  }
+
+  public setModifier(m: Modifier) {
+    this.modifier = m
+    return this
+  }
+
+  public setFactor(f: number) {
+    this.factor = f
+    return this
+  }
+
+  public setMissing(m: number) {
+    this.missing = m
+    return this
   }
 }

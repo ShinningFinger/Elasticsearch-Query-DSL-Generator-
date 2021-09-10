@@ -1,5 +1,4 @@
 import * as _ from 'lodash'
-import { Condition } from '../type/condition'
 import BaseFunction from './base'
 
 export enum DecayKind {
@@ -21,24 +20,34 @@ export default class DecayFunction extends BaseFunction {
 
   decay?: number
 
-  constructor(params: {
-    kind: DecayKind
-    key: string
-    offset: string | number
-    scale: string | number
-    origin: unknown
-    decay?: number
-    weight?: number
-    filter?: Condition
-  }) {
-    const { kind, key, offset, scale, origin, decay, weight, filter } = params
-    super({ weight, filter })
-    this.kind = kind
-    this.key = key
-    this.offset = offset
-    this.scale = scale
-    this.origin = origin
-    this.decay = decay
+  public setKind(k: DecayKind) {
+    this.kind = k
+    return this
+  }
+
+  public setKey(k: string) {
+    this.key = k
+    return this
+  }
+
+  public setOffset(o: string | number) {
+    this.offset = o
+    return this
+  }
+
+  public setScale(s: string | number) {
+    this.scale = s
+    return this
+  }
+
+  public setOrigin(o: unknown) {
+    this.origin = o
+    return this
+  }
+
+  public setDecay(d: number) {
+    this.decay = d
+    return this
   }
 
   generate() {

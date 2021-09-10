@@ -3,7 +3,7 @@ import SearchDSLGenerator from '../generator'
 import { Mode } from '../type/query'
 
 describe('Function score query', () => {
-  const dsl = new SearchDSLGenerator({ size: 10, from: 0 })
+  const dsl = new SearchDSLGenerator().setSize(10).setFrom(0)
   const query = new FunctionScoreQuery({
     filter: {
       age: { $gte: 30 },
@@ -14,7 +14,7 @@ describe('Function score query', () => {
     scoreMode: Mode.SUM,
     boostMode: Mode.SUM,
   })
-  query.addFunctions(new Random({ weight: 200 }))
+  query.addFunctions(new Random().setWeight(200))
   dsl.setQuery(query)
   it('Common function score query', () => {
     const expectedBody = {
@@ -161,29 +161,26 @@ describe('Function score query', () => {
       ],
     }
     dsl.addRescores(
-      new Rescore({
-        windowSize: 50,
-        scoreMode: Mode.TOTAL,
-        rescoreQueryWeight: 0.5,
-        rescoreQuery: query,
-      }),
+      new Rescore()
+        .setWindowSize(50)
+        .setScoreMode(Mode.TOTAL)
+        .setRescoreQueryWeight(0.5)
+        .setRescoreQuery(query),
     )
     expect(dsl.generate()).toEqual(expectedBody)
   })
   it('Function score query with rescores', () => {
     dsl.addRescores(
-      new Rescore({
-        windowSize: 50,
-        scoreMode: Mode.TOTAL,
-        rescoreQueryWeight: 0.5,
-        rescoreQuery: query,
-      }),
-      new Rescore({
-        windowSize: 39,
-        scoreMode: Mode.TOTAL,
-        rescoreQueryWeight: 0.5,
-        rescoreQuery: query,
-      }),
+      new Rescore()
+        .setWindowSize(50)
+        .setScoreMode(Mode.TOTAL)
+        .setRescoreQueryWeight(0.5)
+        .setRescoreQuery(query),
+      new Rescore()
+        .setWindowSize(50)
+        .setScoreMode(Mode.TOTAL)
+        .setRescoreQueryWeight(0.5)
+        .setRescoreQuery(query),
     )
     const dslBody = dsl.generate()
     const { rescore } = dslBody

@@ -2,15 +2,14 @@ import { Decay } from '..'
 import { DecayKind } from '../decay'
 
 test('Gauss function without filter', () => {
-  const gauss = new Decay({
-    kind: DecayKind.GAUSS,
-    key: 'age',
-    offset: '187d',
-    origin: '1998-01-01',
-    scale: '365d',
-    decay: 0.2,
-    weight: 300,
-  })
+  const gauss = new Decay()
+    .setKind(DecayKind.GAUSS)
+    .setKey('age')
+    .setOffset('187d')
+    .setOrigin('1998-01-01')
+    .setScale('365d')
+    .setDecay(0.2)
+    .setWeight(300)
   expect(gauss.generate()).toEqual({
     gauss: {
       age: {
@@ -25,16 +24,15 @@ test('Gauss function without filter', () => {
 })
 
 test('Gauss function with filter ', () => {
-  const gauss = new Decay({
-    kind: DecayKind.GAUSS,
-    key: 'age',
-    offset: '187d',
-    origin: '1998-01-01',
-    scale: '365d',
-    decay: 0.2,
-    weight: 300,
-  })
-  gauss.setFilter({ name: 'John', gender: 'MALE', age: { $lte: 28 } })
+  const gauss = new Decay()
+    .setKind(DecayKind.GAUSS)
+    .setKey('age')
+    .setOffset('187d')
+    .setOrigin('1998-01-01')
+    .setScale('365d')
+    .setDecay(0.2)
+    .setWeight(300)
+    .setFilter({ name: 'John', gender: 'MALE', age: { $lte: 28 } })
   expect(gauss.generate()).toEqual({
     filter: [
       { term: { name: 'John' } },
@@ -54,14 +52,13 @@ test('Gauss function with filter ', () => {
 })
 
 test('Gauss function with default weight', () => {
-  const gauss = new Decay({
-    kind: DecayKind.GAUSS,
-    key: 'age',
-    offset: '187d',
-    origin: '1998-01-01',
-    scale: '365d',
-    decay: 0.2,
-  })
+  const gauss = new Decay()
+    .setKind(DecayKind.GAUSS)
+    .setKey('age')
+    .setOffset('187d')
+    .setOrigin('1998-01-01')
+    .setScale('365d')
+    .setDecay(0.2)
   expect(gauss.generate()).toEqual({
     gauss: {
       age: {

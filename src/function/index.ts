@@ -61,6 +61,16 @@ class FunctionScoreQuery {
     this.functions.push(...f)
   }
 
+  public setBoostScore(b: Mode) {
+    this.boostMode = b
+    return this
+  }
+
+  public setScoreMode(s: Mode) {
+    this.scoreMode = s
+    return this
+  }
+
   generate() {
     const { scoreMode, boostMode } = this
     const boolObject = new Bool()
@@ -94,16 +104,24 @@ class Rescore {
 
   rescoreQuery: FunctionScoreQuery
 
-  constructor(params: {
-    windowSize: number
-    scoreMode: Mode
-    rescoreQueryWeight: number
-    rescoreQuery: FunctionScoreQuery
-  }) {
-    this.windowSize = params.windowSize
-    this.scoreMode = params.scoreMode
-    this.rescoreQueryWeight = params.rescoreQueryWeight
-    this.rescoreQuery = params.rescoreQuery
+  public setWindowSize(w: number) {
+    this.windowSize = w
+    return this
+  }
+
+  public setScoreMode(s: Mode) {
+    this.scoreMode = s
+    return this
+  }
+
+  public setRescoreQueryWeight(w: number) {
+    this.rescoreQueryWeight = w
+    return this
+  }
+
+  public setRescoreQuery(q: FunctionScoreQuery) {
+    this.rescoreQuery = q
+    return this
   }
 
   generate(): RescoreQuery {

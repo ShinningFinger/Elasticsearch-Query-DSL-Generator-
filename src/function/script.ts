@@ -5,15 +5,14 @@ export default class ScriptFunction extends BaseFunction {
 
   params?: { [key: string]: string | number | boolean }
 
-  constructor(data: {
-    source: string
-    weight?: number
-    params?: { [key: string]: string | number | boolean }
-  }) {
-    const { source, weight, params } = data
-    super({ weight })
-    this.source = source
+  public setSource(s: string) {
+    this.source = s
+    return this
+  }
+
+  public setParams(params: { [key: string]: string | number | boolean }) {
     this.params = params
+    return this
   }
 
   generate() {
